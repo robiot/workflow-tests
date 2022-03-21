@@ -26,7 +26,7 @@ jobs:
           run: |
             apt-get update -y
             apt-get install -y python3-pip python3
-            pip install meson ninja
+            pip3 install meson ninja
 
       - name: Get the output
         run: |
