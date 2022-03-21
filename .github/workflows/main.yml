@@ -23,10 +23,14 @@ jobs:
           githubToken: ${{ github.token }}
           
           # To explore the enviroment
-          run: |
+          install: |
             apt-get update -y
             apt-get install -y python3-pip python3
+            pip3 install --upgrade pip
             pip3 install meson ninja
+
+          run: |
+            echo yo
 
       - name: Get the output
         run: |
