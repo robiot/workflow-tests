@@ -25,7 +25,7 @@ jobs:
           # To explore the enviroment
           install: |
             apt-get update -y
-            apt-get install -y python3-pip python3
+            apt-get install -y cmake python3-pip python3
             pip3 install --upgrade pip
             pip3 install meson ninja
 
