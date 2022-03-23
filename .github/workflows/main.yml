@@ -27,9 +27,10 @@ jobs:
             apt-get update -y
             apt-get install -y meson pkg-config gtk+-3.0 libx11-dev libxi-dev libxtst-dev
 
+          # Meson version is to low to use meson compile -C build
           run: |
             meson build
-            cd build && meson compile 
+            cd build && ninja install
             
 
       - name: Get the output
