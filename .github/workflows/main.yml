@@ -30,7 +30,9 @@ jobs:
             pip3 install meson ninja
 
           run: |
-            echo yo
+            meson build
+            meson compile -C build
+            
 
       - name: Get the output
         run: |
