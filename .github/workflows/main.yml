@@ -22,12 +22,14 @@ jobs:
 
           githubToken: ${{ github.token }}
           
-          # To explore the enviroment
+          # libxi-dev
           install: |
             apt-get update -y
-            apt-get install -y cmake python3-pip python3
+            apt-get install -y cmake python3-pip python3 pkg-config gtk+-3.0 libx11-dev libxi-dev libxtst-dev
+
             pip3 install --upgrade pip
             pip3 install meson ninja
+
 
           run: |
             meson build
