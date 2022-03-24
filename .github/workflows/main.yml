@@ -21,7 +21,13 @@ jobs:
           distro: ubuntu18.04
 
           githubToken: ${{ github.token }}
-          
+          setup: |
+            mkdir -p "${PWD}/arm"
+            
+            
+#          dockerRunArgs: |
+#            --volume "${PWD}/arm:/artifacts"
+
           # libxi-dev
           install: |
             apt-get update -y
@@ -31,6 +37,10 @@ jobs:
           run: |
             meson build
             cd build && ninja install
+            echo Files in directory
+            ls -al
+            echo pwd
+            pwd
             
 
       - name: Get the output
