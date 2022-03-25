@@ -26,7 +26,7 @@ jobs:
             
             
           dockerRunArgs: |
-            --volume "${PWD}/arm:/home/runner/work/workflow-tests/workflow-tests/build"
+            --volume "${PWD}/arm:${PWD}/build"
 
           # libxi-dev
           install: |
@@ -60,4 +60,4 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: false
-          files: arm/build/src/xclicker
+          files: arm/src/xclicker
