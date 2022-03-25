@@ -46,7 +46,11 @@ jobs:
           ls -al
           echo pwd
           pwd
-          
+          echo Arm folder
+          ls -al arm
+          echo Src in arm folder
+          ls -al arm/src
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v0.1.14
