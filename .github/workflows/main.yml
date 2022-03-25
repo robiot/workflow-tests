@@ -8,24 +8,10 @@ name: Create Release
 jobs:
   build:
     name: Create Release
-    runs-on: ubuntu-18.04
+    runs-on: robiot/xclicker
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - uses: actions/cache@v2
-        id: cache-id
-        with:
-          path: ${{ runner.temp }}/cache-directory
-          key: ${{ runner.os }}-cache-x64-key
-
-      - uses: airvzxf/cache-anything-new-action@v1.0.1
-        with:
-          script: "install.sh"
-          is_cached: ${{ steps.cache-id.outputs.cache-hit }}
-          cache: ${{ runner.temp }}/cache-directory
-          snapshot: "/"
-          exclude: "/boot /data /dev /mnt /proc /run /sys"
 
       - name: Build x64
         run: |
