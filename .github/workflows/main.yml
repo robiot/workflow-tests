@@ -13,7 +13,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run commands
+      - uses: actions/cache@v2
+        id: cache-id
+        with:
+          path: ${{ runner.temp }}/cache-directory
+          key: ${{ runner.os }}-cache-x64-key
+
+      - uses: airvzxf/cache-anything-new-action@v1.0.1
+        with:
+          script: "install.sh"
+          is_cached: ${{ steps.cache-id.outputs.cache-hit }}
+          cache: ${{ runner.temp }}/cache-directory
+          snapshot: "/"
+          exclude: "/boot /data /dev /mnt /proc /run /sys"
+
+      - name: Build x64
+        run: |
+            mkdir -p outputs
+            meson build
+            cd build && ninja install
+            cp src/build/xclicker ../outputs/xclicker_1.3.2_amd64
+
+      - name: Build arm
         uses: uraimo/run-on-arch-action@v2.1.1
         id: runcmdarm
         with:
@@ -37,30 +58,6 @@ jobs:
           run: |
             meson build
             cd build && ninja install
-            
-      - name: Run commands
-        uses: uraimo/run-on-arch-action@v2.1.1
-        id: runcmdarm64
-        with:
-          arch: aarch64
-          distro: ubuntu18.04
-
-          githubToken: ${{ github.token }}
-          setup: |
-            mkdir -p "${PWD}/arm64"
-            
-            
-          dockerRunArgs: |
-            --volume "${PWD}/arm64:${PWD}/build"
-
-          install: |
-            apt-get update -y
-            apt-get install -y meson pkg-config gtk+-3.0 libx11-dev libxi-dev libxtst-dev
-
-          run: |
-            meson build
-            cd build && ninja install
-
 
       - name: Create Release
         id: create_release
@@ -72,5 +69,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            arm/src/xclicker
-            arm64/src/xclicker
+            outputs/xclicker_1.3.2_amd64
+#            arm/src/xclicker
+#            arm64/src/xclicker
