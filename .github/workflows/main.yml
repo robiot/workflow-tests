@@ -38,14 +38,14 @@ jobs:
             meson build
             cd build && ninja install
             echo Files in directory
-            ls -al
-            echo pwd
-            pwd
             
 
       - name: Get the output
         run: |
-          echo finished
+          echo Where am I
+          ls -al
+          echo pwd
+          pwd
           
       - name: Create Release
         id: create_release
