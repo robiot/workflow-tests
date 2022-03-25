@@ -25,8 +25,8 @@ jobs:
             mkdir -p "${PWD}/arm"
             
             
-#          dockerRunArgs: |
-#            --volume "${PWD}/arm:/artifacts"
+          dockerRunArgs: |
+            --volume "${PWD}/arm:/home/runner/work/workflow-tests/workflow-tests/build"
 
           # libxi-dev
           install: |
@@ -47,12 +47,13 @@ jobs:
         run: |
           echo finished
           
-      # - name: Create Release
-      #   id: create_release
-      #   uses: softprops/action-gh-release@v0.1.14
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     generate_release_notes: true
-      #     draft: false
-      #     prerelease: false
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v0.1.14
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+          files: arm/build/src/xclicker
