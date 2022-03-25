@@ -15,7 +15,7 @@ jobs:
 
       - name: Run commands
         uses: uraimo/run-on-arch-action@v2.1.1
-        id: runcmd
+        id: runcmdarm
         with:
           arch: armv7
           distro: ubuntu18.04
@@ -37,19 +37,30 @@ jobs:
           run: |
             meson build
             cd build && ninja install
-            echo Files in directory
             
+      - name: Run commands
+        uses: uraimo/run-on-arch-action@v2.1.1
+        id: runcmdarm64
+        with:
+          arch: aarch64
+          distro: ubuntu18.04
 
-      - name: Get the output
-        run: |
-          echo Where am I
-          ls -al
-          echo pwd
-          pwd
-          echo Arm folder
-          ls -al arm
-          echo Src in arm folder
-          ls -al arm/src
+          githubToken: ${{ github.token }}
+          setup: |
+            mkdir -p "${PWD}/arm64"
+            
+            
+          dockerRunArgs: |
+            --volume "${PWD}/arm64:${PWD}/build"
+
+          install: |
+            apt-get update -y
+            apt-get install -y meson pkg-config gtk+-3.0 libx11-dev libxi-dev libxtst-dev
+
+          run: |
+            meson build
+            cd build && ninja install
+
 
       - name: Create Release
         id: create_release
@@ -60,4 +71,6 @@ jobs:
           generate_release_notes: true
           draft: false
           prerelease: false
-          files: arm/src/xclicker
+          files: |
+            arm/src/xclicker
+            arm64/src/xclicker
