@@ -6,8 +6,8 @@ on:
 name: Create Release
 
 jobs:
-  build:
-    name: Create Release
+  amd64build:
+    name: Build for amd64
     runs-on: ubuntu-18.04
     container: robiot/xclicker
     steps:
@@ -21,6 +21,23 @@ jobs:
             cd build && ninja install
             cp src/xclicker ../outputs/xclicker_1.3.2_amd64
 
+      - uses: actions/upload-artifact@master
+        with:
+          name: output-artifact
+          path: outputs
+    
+  build:
+    name: Create Release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@master
+        with:
+          name: output-artifact
+          path: outputs
+    
       - name: Build arm
         uses: uraimo/run-on-arch-action@v2.1.1
         id: runcmdarm
@@ -43,7 +60,7 @@ jobs:
             meson build
             cd build && ninja install
             cp src/xclicker ../outputs/xclicker_1.3.2_arm
-
+    
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v0.1.14
