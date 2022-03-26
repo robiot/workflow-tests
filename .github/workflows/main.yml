@@ -19,7 +19,7 @@ jobs:
             mkdir -p outputs
             meson build
             cd build && ninja install
-            cp src/build/xclicker ../outputs/xclicker_1.3.2_amd64
+            cp src/xclicker ../outputs/xclicker_1.3.2_amd64
 
       - name: Build arm
         uses: uraimo/run-on-arch-action@v2.1.1
@@ -29,12 +29,9 @@ jobs:
           distro: ubuntu18.04
 
           githubToken: ${{ github.token }}
-          setup: |
-            mkdir -p "${PWD}/arm"
-            
-            
+
           dockerRunArgs: |
-            --volume "${PWD}/arm:${PWD}/build"
+            --volume "${PWD}/outputs:${PWD}/outputs"
 
           # libxi-dev
           install: |
@@ -45,6 +42,7 @@ jobs:
           run: |
             meson build
             cd build && ninja install
+            cp src/xclicker ../outputs/xclicker_1.3.2_arm
 
       - name: Create Release
         id: create_release
@@ -57,5 +55,4 @@ jobs:
           prerelease: false
           files: |
             outputs/xclicker_1.3.2_amd64
-#            arm/src/xclicker
-#            arm64/src/xclicker
+            outputs/xclicker_1.3.2_arm
