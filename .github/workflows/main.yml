@@ -8,7 +8,8 @@ name: Create Release
 jobs:
   build:
     name: Create Release
-    runs-on: robiot/xclicker
+    runs-on: ubuntu-18.04
+    container: robiot/xclicker
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
