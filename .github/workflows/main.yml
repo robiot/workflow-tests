@@ -29,6 +29,7 @@ jobs:
   build:
     name: Create Release
     runs-on: ubuntu-18.04
+    needs: amd64build
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
