@@ -29,8 +29,7 @@ jobs:
           echo HERE COMES THE SUN
           ls
           echo END OF THIS THING
-          ls target/release
-          cp target/release/rcat outputs/rcat-${{github.ref_name}}-portable.exe
+          cp target/release/sickomode.exe outputs/rcat-${{github.ref_name}}-portable.exe
 
       - name: Create Release
         id: create_release
