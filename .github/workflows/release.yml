@@ -53,10 +53,11 @@ jobs:
       - name: Create deb package
         run: cargo deb
 
+      # Name of binary needed
       - name: "Move to outputs/ folder"
         run: |
           mkdir outputs
-          cp target/release/rcat outputs/rcat-${{github.ref_name}}-linux-portable
+          cp target/release/sickomode outputs/rcat-${{github.ref_name}}-linux-portable 
           cp target/debian/*.deb outputs/rcat-${{github.ref_name}}-linux.deb
 
       - name: Upload to temporary storage
