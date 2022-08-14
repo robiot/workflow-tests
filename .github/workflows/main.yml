@@ -18,8 +18,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Test
-        run: cargo test --release
+      # - name: Test
+      #   run: cargo test --release
       - name: Build
         run: cargo build --release
 
@@ -27,9 +27,9 @@ jobs:
         run: |
           mkdir outputs
           echo HERE COMES THE SUN
-          ls -al
+          ls
           echo END OF THIS THING
-          ls -al target
+          ls target
           cp target/release/rcat outputs/rcat-${{github.ref_name}}-portable.exe
 
       - name: Create Release
