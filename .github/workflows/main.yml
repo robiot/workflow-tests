@@ -35,8 +35,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+          # generate_release_notes: true
+          # draft: false
+          # prerelease: false
           files: |
             outputs/**
