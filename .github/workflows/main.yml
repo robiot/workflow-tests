@@ -26,6 +26,10 @@ jobs:
       - name: "Filename"
         run: |
           mkdir outputs
+          echo HERE COMES THE SUN
+          ls -al
+          echo END OF THIS THING
+          ls -al target
           cp target/release/rcat outputs/rcat-${{github.ref_name}}-portable.exe
 
       - name: Create Release
