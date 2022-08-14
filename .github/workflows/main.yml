@@ -39,4 +39,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            target/release/rcat
+            outputs/**
