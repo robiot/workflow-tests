@@ -1,0 +1,10 @@
+[package]
+name = "sickomode"
+version = "2.1.0"
+authors = ["robiot"]
+description = "Ayo"
+license = "GPL-3.0"
+repository = "https://github.com/robiot"
+edition = "2021"
+
+[dependencies]
